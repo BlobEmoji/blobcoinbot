@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OGNova/blobcoins.git"
+    "url": "git+https://github.com/BlobEmoji/blobcoinbot.git"
   },
   "author": "OGNovuh",
   "license": "Apache 2.0",
   "bugs": {
-    "url": "https://github.com/OGNova/blobcoins/issues"
+    "url": "https://github.com/BlobEmoji/blobcoinbot/issues"
   },
   "dependencies": {
     "child_process": "^1.0.2",
