@@ -55,6 +55,7 @@ module.exports = class {
       score.points += points;
       message.channel.send(`${message.author.username} grabbed the coins!`);
     }
+    client.points.set(`${message.guild.id}-${message.author.id}`, score);
     setInterval(dropPoints, settings.chatDropRate);
   }
 

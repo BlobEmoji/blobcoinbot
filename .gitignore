@@ -1,0 +1,7 @@
+# Directories
+/node_modules/
+/data/
+
+# Specific Files
+package-lock.json
+config.js
