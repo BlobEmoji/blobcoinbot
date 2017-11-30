@@ -1,5 +1,3 @@
-import { setInterval } from "timers";
-
 const timeout = new Map();
 function giveRandomPoints(min, max) {
   min = Math.ceil(min);
