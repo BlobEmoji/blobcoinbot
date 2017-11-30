@@ -46,10 +46,11 @@ module.exports = class {
     if (message.channel.type !== 'text') return;
     setInterval(() => {
       const actions = ['mine', 'drill', 'blob', 'coin'];
-      const score = client.points.get(`${message.guild.id}-${message.author.id}`) || { points: 200, level: 1, user: message.author.id, guild: message.guild.id };
+      const score = client.points.get(`${message.guild.id}-${message.author.id}`) || { points: 1, level: 0, user: message.author.id, guild: message.guild.id };
       const settings = client.settings.get(message.guild.id);
-      const response = await this.client.awaitReply(message, 'React to this message to get a random amount of Blob Coins!');
-      if (['-pick', '-p'].includes(response.toLowerCase())) {
+      const pickMethod = `${actions[Math.floor(Math.random() * actions.length)]}`
+      const response = await this.client.awaitReply(message, `Respond with ${settings.prefix}${pickMethod} to get a random amount of Blob Coins!`);
+      if ([`${pickMethod}`].includes(response.toLowerCase())) {
         console.log('Blob Coin mined!');
         await response.delete();
         const points = (parseInt(settings.chatDrop));
