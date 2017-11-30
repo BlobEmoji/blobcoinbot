@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"This is a test.\"",
     "start": "node index.js"
   },
   "engines": {
@@ -13,8 +12,8 @@
     "type": "git",
     "url": "git+https://github.com/BlobEmoji/blobcoinbot.git"
   },
-  "author": "OGNovuh",
-  "license": "Apache 2.0",
+  "author": "OGNovuh et al",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/BlobEmoji/blobcoinbot/issues"
   },
