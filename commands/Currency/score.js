@@ -6,11 +6,10 @@ class Score extends Social {
       name: 'score',
       description: 'Displays your current score level and points.',
       usage: 'score',
-      category: 'Currency',
+      category: 'Social',
       cost: 0,
       aliases: ['points', 'level', 'bal', 'balance'],
-      botPerms: ['SEND_MESSAGES'],
-      permLevel: 'User'
+      botPerms: ['SEND_MESSAGES']
     });
   }
 
