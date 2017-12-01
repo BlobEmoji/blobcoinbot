@@ -1,0 +1,8 @@
+{
+	"token": "YOUR.TOKEN.HERE",
+	"ownerid": "100000000000000000",
+	"channel": "200000000000000000",
+	"interval": 300000,
+	"timeout": 60000,
+	"words": ["your", "word", "list", "here"]
+}
