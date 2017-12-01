@@ -1,6 +1,7 @@
 module.exports = (client) => {
   const monitor = require('../monitors/monitor.js');
-  const settings = client.settings.get(client.channels.get(client.config.channel));
+  const channel = client.channels.get(client.config.channel);
+  const settings = client.settings.get(channel.guild.id);
 
   function giveRandomPoints(min, max) {
     min = Math.ceil(min);
@@ -8,8 +9,8 @@ module.exports = (client) => {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
-  dropPoints = (client, message, level) => {
-    if (message.channel.type !== 'text') return;
+  dropPoints = (client) => {
+    if (cnnel.type !== 'text') return;
     console.log('Shit\'s happening');
     const actions = ['mine', 'drill', 'blob', 'coin'];
     const score = client.points.get(`${message.guild.id}-${message.author.id}`) || { points: 1, level: 0, user: message.author.id, guild: message.guild.id };
@@ -22,7 +23,7 @@ module.exports = (client) => {
       score.points += points;
       message.channel.send(`${message.author.username} grabbed the coins!`);
     }
-    client.points.set(`${message.guild.id}-${message.author.id}`, score);
+    client.points.set(`${message.guild.id}-${message.author.id}`, score); */
   }
 
   setInterval(dropPoints, settings.chatDropRate);
