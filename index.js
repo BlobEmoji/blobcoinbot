@@ -4,11 +4,34 @@ const fs = require('fs');
 
 const client = new discord.Client()
 
-if (!fs.existsSync('./data.json')) fs.writeFile('data.json', {}, 'utf8');
+if (!fs.existsSync('./data.json')) fs.writeFile('data.json', "{}", 'utf8');
+
+dataPush = (obj) => new Promise((resolve, reject) => {
+	json = JSON.stringify(obj)
+	fs.writeFile('data.json', json, (err) => {
+		if (err) reject(err);
+		else resolve(json)
+	});
+})
+
+dataPull = () => new Promise((resolve, reject) => {
+	fs.readFile('data.json', (err, data) => {
+		if (err) reject(err);
+		else {
+			try {
+				obj = JSON.parse(data)
+			} catch (e) {
+				reject(e)
+			}
+			resolve(obj)
+		}
+	});
+})
 
 dropCoins = () => {
 	const channel = client.channels.get(config.channel)
 
+	// TODO: Random words.
 	const str = "blobs"
 
 	channel.send(`:exclamation: Type \`${str}\` to collect a blob coin!`)
@@ -18,8 +41,22 @@ dropCoins = () => {
 	}, {time: config.timeout})
 
 	collect.on('collect', (msg) => {
-		msg.reply(":ok_hand: You've collected a blob coin!")
 		collect.stop()
+		dataPull().then((data) => {
+			coins = data[msg.author.id] || 0;
+			coins++
+			data[msg.author.id] = coins
+			dataPush(data).then(() => {
+				msg.reply(`:ok_hand: You have collected a blob coin! You now have ${coins} blob coins!`)
+			}).catch((e) => {
+				msg.reply(":x: Oops! There was an error attempting to write to the database.")
+				console.warn(e)
+			})
+		}).catch((e) => {
+			msg.reply(":x: Oops! There was an error attempting to read the database.")
+			console.warn(e)
+		})
+		
 	});
 
 	collect.on('end', (c, r) => {
@@ -27,11 +64,11 @@ dropCoins = () => {
 	});
 }
 
+setInterval(dropCoins, config.interval)
+
 client.on('debug', console.log);
 client.on('error', console.error);
 client.on('warn', console.warn);
 client.on('disconnect', console.warn);
 
 client.login(config.token);
-
-setInterval(dropCoins, config.interval)
