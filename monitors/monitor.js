@@ -11,10 +11,6 @@ module.exports = class {
     this.givePoints(client, message, level);
   }
   
-  async run(client, message, level) {
-    this.dropPoints(client, message, level);
-  }
-
   static givePoints(client, message, level) {
     if (message.channel.type !== 'text') return;
     const settings = client.settings.get(message.guild.id);
@@ -38,25 +34,4 @@ module.exports = class {
     }
     client.points.set(`${message.guild.id}-${message.author.id}`, score);
   }
-
-
-  async dropPoints(client, message, level) {
-    if (message.channel.type !== 'text') return;
-    console.log('Shit\'s happening');
-    const actions = ['mine', 'drill', 'blob', 'coin'];
-    const score = client.points.get(`${message.guild.id}-${message.author.id}`) || { points: 1, level: 0, user: message.author.id, guild: message.guild.id };
-    const settings = client.settings.get(message.guild.id);
-    const pickMethod = `${actions[Math.floor(Math.random() * actions.length)]}`;
-    const response = await this.client.awaitReply(message, `Respond with ${settings.prefix}${pickMethod} to get a random amount of Blob Coins!`);
-    if ([`${pickMethod}`].includes(response.toLowerCase())) {
-      console.log('Blob Coin mined!');
-      await response.delete();
-      const points = (parseInt(settings.chatDrop));
-      score.points += points;
-      message.channel.send(`${message.author.username} grabbed the coins!`);
-    }
-    client.points.set(`${message.guild.id}-${message.author.id}`, score);
-    setInterval(dropPoints, settings.chatDropRate);
-  }
-
 };

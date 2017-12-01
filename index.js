@@ -75,7 +75,7 @@ class Custodian extends Discord.Client {
     } else if (client.aliases.has(commandName)) {
       command = client.commands.get(client.aliases.get(commandName));
     }
-    if (!command) return `The command \`${commandName}\` doesn"t seem to exist, nor is it an alias. Try again!`;
+    if (!command) return `The command \`${commandName}\` does not seem to exist, nor is it an alias. Try again!`;
   
     if (command.shutdown) {
       await command.shutdown(client);
@@ -91,6 +91,7 @@ const client = new Custodian({
 console.log(client.config.permLevels.map(p=>`${p.level} : ${p.name}`));
 
 require('./modules/functions.js')(client);
+require('./modules/dropCoins.js')(client);
 
 const init = async () => {
 
