@@ -31,8 +31,7 @@ dataPull = () => new Promise((resolve, reject) => {
 dropCoins = () => {
 	const channel = client.channels.get(config.channel)
 
-	// TODO: Random words.
-	const str = "blobs"
+	const str = config.words[Math.floor(Math.random()*config.words.length)];
 
 	channel.send(`:exclamation: Type \`${str}\` to collect a blob coin!`)
 
