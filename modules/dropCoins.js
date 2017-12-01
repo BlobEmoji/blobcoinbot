@@ -1,18 +1,17 @@
-module.exports = (client, config) => {
-  const channel = client.channels.get(config.channel)
-
-  const str = config.words[Math.floor(Math.random() * config.words.length)]
+module.exports = (client) => {
+  const channel = client.channels.get(client.config.channel)
+  const str = client.config.words[Math.floor(Math.random() * client.config.words.length)]
 
   channel.send(`:exclamation: Type \`${str}\` to collect a blob coin!`)
 
-  var collect = channel.createMessageCollector(m => {
+  const collect = channel.createMessageCollector(m => {
     return m.content === str && m.author.id !== client.user.id
-  }, {time: config.timeout})
+  }, {time: client.config.timeout})
 
   collect.on('collect', (msg) => {
     collect.stop()
     client.dataPull().then((data) => {
-      var coins = data[msg.author.id] || 0
+      let coins = data[msg.author.id] || 0
       coins++
       data[msg.author.id] = coins
       client.dataPush(data).then(() => {

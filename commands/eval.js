@@ -1,18 +1,13 @@
 /* eslint no-eval: 0 */
 
-module.exports = (client, config, msg, args) => {
-  if (msg.author.id !== config.owner) {
-    msg.reply(':x: Access denied.')
-    return
-  }
+module.exports = (client, msg, args) => {
+  if (msg.author.id !== client.config.owner) return msg.reply(':x: Access denied.')
 
   try {
     const code = args.join(' ')
-    var result = eval(code)
+    let result = eval(code)
 
-    if (typeof result !== 'string') {
-      result = require('util').inspect(result)
-    }
+    if (typeof result !== 'string') result = require('util').inspect(result)
 
     msg.reply(clean(result), {code: 'xl', split: true})
   } catch (e) {
@@ -21,9 +16,6 @@ module.exports = (client, config, msg, args) => {
 }
 
 function clean (text) {
-  if (typeof (text) === 'string') {
-    return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203))
-  } else {
-    return text
-  }
+  if (typeof (text) === 'string') return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203))
+  else return text
 }
