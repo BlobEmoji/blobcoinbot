@@ -1,0 +1,19 @@
+{
+  "name": "blobcoinbot",
+  "version": "0.0.0",
+  "description": "Reward bot designed for the Blob Emoji discord server, inspired by Nadeko.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BlobEmoji/blobcoinbot.git"
+  },
+  "author": "Ian Murray et al",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BlobEmoji/blobcoinbot/issues"
+  },
+  "homepage": "https://github.com/BlobEmoji/blobcoinbot#readme"
+}
