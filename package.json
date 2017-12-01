@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/BlobEmoji/blobcoinbot/issues"
   },
-  "homepage": "https://github.com/BlobEmoji/blobcoinbot#readme"
+  "homepage": "https://github.com/BlobEmoji/blobcoinbot#readme",
+  "dependencies": {
+    "discord.js": "^11.2.1"
+  }
 }
