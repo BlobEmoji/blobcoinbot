@@ -1,7 +1,3 @@
-# Blob Points
+# blobcoinbot
 
-Blob Coin bot is a bot designed for the Blob Emoji Discord server. It is a minimal clone of Nadeko's flower dropping system.
-
-## Contributing
-
-If you'd like to contribute, see the [Pull Request Template](/docs/PULL_REQUEST_TEMPLATE.md).
+Reward bot designed for the Blob Emoji discord server, inspired by Nadeko.

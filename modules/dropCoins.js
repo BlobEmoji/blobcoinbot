@@ -1,30 +1,35 @@
-module.exports = (client) => {
-  const monitor = require('../monitors/monitor.js');
-  const channel = client.channels.get(client.config.channel);
-  const settings = client.settings.get(channel.guild.id);
+module.exports = (client, config) => {
 
-  function giveRandomPoints(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
+	const channel = client.channels.get(config.channel)
 
-  dropPoints = (client) => {
-    if (cnnel.type !== 'text') return;
-    console.log('Shit\'s happening');
-    const actions = ['mine', 'drill', 'blob', 'coin'];
-    const score = client.points.get(`${message.guild.id}-${message.author.id}`) || { points: 1, level: 0, user: message.author.id, guild: message.guild.id };
-    const pickMethod = `${actions[Math.floor(Math.random() * actions.length)]}`;
-    const response = client.awaitReply(message, `Respond with ${settings.prefix}${pickMethod} to get a random amount of Blob Coins!`);
-    if ([`${pickMethod}`].includes(response.toLowerCase())) {
-      console.log('Blob Coin mined!');
-      response.delete();
-      const points = (parseInt(settings.chatDrop));
-      score.points += points;
-      message.channel.send(`${message.author.username} grabbed the coins!`);
-    }
-    client.points.set(`${message.guild.id}-${message.author.id}`, score); */
-  }
+	const str = config.words[Math.floor(Math.random()*config.words.length)];
 
-  setInterval(dropPoints, settings.chatDropRate);
+	channel.send(`:exclamation: Type \`${str}\` to collect a blob coin!`)
+
+	collect = channel.createMessageCollector(m => {
+		return m.content == str && m.author.id != client.user.id
+	}, {time: config.timeout})
+
+	collect.on('collect', (msg) => {
+		collect.stop()
+		client.dataPull().then((data) => {
+			coins = data[msg.author.id] || 0;
+			coins++
+			data[msg.author.id] = coins
+			client.dataPush(data).then(() => {
+				msg.reply(`:ok_hand: You have collected a blob coin! You now have ${coins} blob coins!`)
+			}).catch((e) => {
+				msg.reply(":x: Oops! There was an error attempting to write to the database.")
+				console.warn(e)
+			})
+		}).catch((e) => {
+			msg.reply(":x: Oops! There was an error attempting to read the database.")
+			console.warn(e)
+		})
+		
+	});
+
+	collect.on('end', (c, r) => {
+		if (r == "time") channel.send(":hourglass: Sorry! No one responded in time.")
+	});
 }

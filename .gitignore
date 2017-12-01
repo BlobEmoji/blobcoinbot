@@ -1,10 +1,4 @@
-# Directories
-/node_modules/
-/data/
-
-# Logs
+node_modules/
 *.log
-
-# Specific Files
-package-lock.json
-config.js
+config.json
+data.json
